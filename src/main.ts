@@ -1,8 +1,5 @@
 // Utility to fetch and display Open Day data from public/OpenDay14.json
 import './style.css'
-import viteLogo from '/vite.svg'
-import tailwindLogo from '/tailwindcss-mark.svg'
-import typeScriptLogo from '/typescript.svg'
 import cuLogo from '/cu-logo.svg'
 
 // Fetches the Open Day JSON from the public/api directory.
@@ -49,34 +46,75 @@ function showError() {
   document.getElementById('retry-btn')!.addEventListener('click', init)
 }
 
+// Formats ISO datetime strings into a human-readable range,
+// e.g. "Friday 27 June 2025: 09:00–16:00". en-GB locale gives
+// day-before-month ordering without extra configuration.
+function formatDateRange(start: string, end: string): string {
+  const s = new Date(start)
+  const e = new Date(end)
+  const day = s.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+  const startTime = s.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+  const endTime = e.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+  return `${day}: ${startTime}-${endTime}`
+}
+
+// Decodes the single-character event type from the API into a display label.
+// Falls back to the raw value if an unrecognised code is encountered.
+function decodeType(type: string): string {
+  const map: Record<string, string> = { U: 'Undergraduate', P: 'Postgraduate' }
+  return map[type] ?? type
+}
+
+// Builds and injects the full page HTML from the Open Day data object.
 function renderOpenDay(data: any) {
   const app = document.querySelector<HTMLDivElement>('#app')!
+  // Guard against malformed responses that parse as JSON but lack the expected shape.
   if (!data.topics) {
     app.innerHTML = '<p class="text-red-600">No Open Day data found.</p>'
     return
   }
+
+  // Hero section: Cardiff Red header bar with CU logo, full-width cover image
+  // with a semi-transparent overlay, and event title/date/type badge drawn
+  // from the top-level fields in OpenDay.json.
   app.innerHTML = `
-    <div class="demo-banner w-full bg-yellow-300 text-black flex flex-col sm:flex-row items-center justify-between px-4 py-2 mb-6 gap-2 border-b-2 border-yellow-500">
-      <div class="font-bold text-lg flex-1 text-center sm:text-left">This is a demo app</div>
-      <div class="flex flex-row items-center gap-3 justify-center">
-        <a href="https://vitejs.dev/" target="_blank" rel="noopener noreferrer">
-          <img src="${viteLogo}" alt="Vite Logo" class="h-8 w-auto" />
-        </a>
-        <a href="https://tailwindcss.com/" target="_blank" rel="noopener noreferrer">
-          <img src="${tailwindLogo}" alt="Tailwind CSS Logo" class="h-8 w-auto" />
-        </a>
-        <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer">
-          <img src="${typeScriptLogo}" alt="TypeScript Logo" class="h-8 w-auto" />
-        </a>
+    <!-- Utility bar: mirrors the black top bar on cardiff.ac.uk with secondary navigation links. py-3 gives it slightly more height than the default. text-white is set on each link explicitly to override the global anchor colour set in style.css. -->
+    <div class="bg-black">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex justify-end items-center gap-6">
+        <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="text-white text-sm hover:underline">Teaching excellence</a>
+        <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="text-white text-sm hover:underline">Alumni</a>
+        <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="text-white text-sm hover:underline">Donate</a>
+        <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="text-white text-sm hover:underline">News</a>
+        <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="text-white text-sm hover:underline">Events</a>
       </div>
     </div>
-    <div class="min-h-screen bg-cardiff-white font-sans px-2 py-6">
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-        <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer">
-          <img src="${cuLogo}" alt="Cardiff University Logo" class="h-16 w-auto" />
+    <!-- Main nav bar: white background with CU logo on the left, primary nav links in the centre, and a Cymraeg (Welsh language) toggle on the right. Nav links are placeholders - the site is single-page so they link back to cardiff.ac.uk rather than routing internally. pl-16 nudges the nav links inward from the logo rather than sitting flush against it. -->
+    <header class="bg-white border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center">
+        <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="shrink-0">
+          <img src="${cuLogo}" alt="Cardiff University" class="h-16 w-auto" />
         </a>
+        <nav class="hidden md:flex items-center gap-8 text-black text-xl font-medium flex-1 pl-16">
+          <a href="https://www.cardiff.ac.uk/study" target="_blank" rel="noopener noreferrer" class="hover:text-cardiff-red transition-colors">Study</a>
+          <a href="https://www.cardiff.ac.uk/research" target="_blank" rel="noopener noreferrer" class="hover:text-cardiff-red transition-colors">Research</a>
+          <a href="https://www.cardiff.ac.uk/about" target="_blank" rel="noopener noreferrer" class="hover:text-cardiff-red transition-colors">About</a>
+        </nav>
+        <a href="" rel="noopener noreferrer" class="ml-auto border border-black text-black text-sm px-3 py-1 hover:bg-black hover:text-white transition-colors">Cymraeg</a>
       </div>
-      <h1 class="text-3xl sm:text-5xl font-bold text-cardiff-red mb-8 text-center">Cardiff University Open Day</h1>
+    </header>
+    <!-- Hero image: full-width cover photo with a dark overlay so white text remains readable at all screen sizes. -->
+    <div class="relative">
+      <img src="${data.cover_image}" alt="Open Day banner" class="w-full h-64 sm:h-96 object-cover" />
+      <div class="absolute inset-0 bg-black/40 flex items-end">
+        <div class="max-w-7xl mx-auto px-6 pb-8 w-full">
+          <span class="inline-block bg-cardiff-red text-white text-sm font-semibold px-3 py-1 rounded mb-3">${decodeType(data.type)}</span>
+          <h1 class="text-white text-3xl sm:text-5xl font-bold mb-2">${data.description}</h1>
+          <p class="text-white/90 text-lg">${formatDateRange(data.start_time, data.end_time)}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Topics grid: one card per topic, responsive columns scaling from 1 on mobile up to 3 on large screens. -->
+    <div class="bg-cardiff-white font-sans px-2 py-6">
       <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         ${data.topics.map((topic: any) => topic && topic.name ? `
           <div class="bg-cardiff-grey rounded-lg shadow p-6 flex flex-col">
