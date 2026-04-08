@@ -16,7 +16,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Arial', 'Helvetica Neue', 'Helvetica', 'sans-serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['"Source Sans 3"', 'Arial', 'Helvetica Neue', 'sans-serif'],
       },
     },
   },
