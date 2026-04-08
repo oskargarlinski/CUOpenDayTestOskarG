@@ -1,4 +1,4 @@
-(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))n(r);new MutationObserver(r=>{for(const a of r)if(a.type==="childList")for(const i of a.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&n(i)}).observe(document,{childList:!0,subtree:!0});function t(r){const a={};return r.integrity&&(a.integrity=r.integrity),r.referrerPolicy&&(a.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?a.credentials="include":r.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(r){if(r.ep)return;r.ep=!0;const a=t(r);fetch(r.href,a)}})();const l="/CUOpenDayTestOskarG/cu-logo.svg";async function m(){const s=await fetch("/CUOpenDayTestOskarG/api/OpenDay.json");if(!s.ok)throw new Error(`HTTP ${s.status}`);return s.json()}function x(){const e=document.querySelector("#app");e.innerHTML=`
+(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))n(r);new MutationObserver(r=>{for(const a of r)if(a.type==="childList")for(const i of a.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&n(i)}).observe(document,{childList:!0,subtree:!0});function t(r){const a={};return r.integrity&&(a.integrity=r.integrity),r.referrerPolicy&&(a.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?a.credentials="include":r.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(r){if(r.ep)return;r.ep=!0;const a=t(r);fetch(r.href,a)}})();const d="/CUOpenDayTestOskarG/cu-logo.svg";async function m(){const s=await fetch("/CUOpenDayTestOskarG/api/OpenDay.json");if(!s.ok)throw new Error(`HTTP ${s.status}`);return s.json()}function x(){const e=document.querySelector("#app");e.innerHTML=`
     <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]">
       <div class="text-center">
         <div class="spinner mx-auto mb-5"></div>
@@ -20,7 +20,7 @@
         </button>
       </div>
     </div>
-  `,document.getElementById("retry-btn").addEventListener("click",p)}function c(e,s){const t=new Date(e),n=new Date(s),r=t.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),a=t.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}),i=n.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});return`${r}: ${a}-${i}`}function f(e){return{U:"Undergraduate",P:"Postgraduate"}[e]??e}function u(e){if(!e?.title)return"";const s=e.start_time?new Date(e.start_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,t=e.end_time?new Date(e.end_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,n=s?t?`${s}–${t}`:s:null,r=e.location?.title??"",a=e.location?.address??"",i=[r,a].filter(Boolean).join(", "),o=e.location?.accessible===1,d=e.location?.bike_parking===1;return`
+  `,document.getElementById("retry-btn").addEventListener("click",p)}function c(e,s){const t=new Date(e),n=new Date(s),r=t.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),a=t.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}),i=n.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});return`${r}: ${a}-${i}`}function f(e){return{U:"Undergraduate",P:"Postgraduate"}[e]??e}function u(e){if(!e?.title)return"";const s=e.start_time?new Date(e.start_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,t=e.end_time?new Date(e.end_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,n=s?t?`${s}–${t}`:s:null,r=e.location?.title??"",a=e.location?.address??"",i=[r,a].filter(Boolean).join(", "),o=e.location?.accessible===1,l=e.location?.bike_parking===1;return`
     <div class="border-t border-gray-100 pt-3 mt-3 first:border-t-0 first:pt-0 first:mt-0">
       <div class="flex items-start justify-between gap-2 mb-1">
         <span class="font-sans font-semibold text-sm text-cardiff-dark leading-snug">${e.title}</span>
@@ -37,10 +37,10 @@
           ${i}
         </span>`:""}
       </div>
-      ${o||d?`
+      ${o||l?`
         <div class="flex gap-2 mb-1.5">
           ${o?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">♿ Accessible</span>':""}
-          ${d?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">🚲 Bike parking</span>':""}
+          ${l?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">🚲 Bike parking</span>':""}
         </div>
       `:""}
       ${e.description_short?`
@@ -68,7 +68,7 @@
     <header class="bg-white border-b border-gray-100 shadow-sm">
       <div class="max-w-screen-2xl mx-auto px-4 py-3 flex items-center">
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="shrink-0">
-          <img src="${l}" alt="Cardiff University" class="h-14 w-auto" />
+          <img src="${d}" alt="Cardiff University" class="h-14 w-auto" />
         </a>
         <nav class="hidden md:flex items-center gap-8 flex-1 pl-12">
           <a href="https://www.cardiff.ac.uk/study" target="_blank" rel="noopener noreferrer" class="font-sans text-cardiff-dark text-base font-medium hover:text-cardiff-red transition-colors duration-150">Study</a>
@@ -126,7 +126,7 @@
           ${e.topics.map((t,n)=>t&&t.name?`
             <div class="topic-card bg-white shadow-sm border border-gray-100 flex flex-col overflow-hidden hover:shadow-md transition-shadow duration-200" style="animation-delay:${n*60}ms">
               <div class="relative h-36 overflow-hidden">
-                <img src="${t.cover_image||l}" alt="${t.name}" class="w-full h-full object-cover" />
+                <img src="${t.cover_image||d}" alt="${t.name}" class="w-full h-full object-cover" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
               </div>
               <div class="flex flex-col flex-1 p-5 border-l-4 border-cardiff-red">
@@ -139,6 +139,9 @@
                     </summary>
                     <div class="mt-3">
                       ${t.programs.map(u).join("")}
+                      <button class="sessions-close mt-3 w-full font-sans text-xs font-semibold text-cardiff-red hover:text-[#b8002b] transition-colors pt-3 border-t border-gray-100 text-left">
+                        Hide ${t.programs.length} session${t.programs.length!==1?"s":""} ‹
+                      </button>
                     </div>
                   </details>
                 `:""}
@@ -149,4 +152,4 @@
 
       </div>
     </div>
-  `}async function p(){x();try{const e=await m();h(e)}catch{g()}}p();
+  `,b()}function b(){document.querySelectorAll(".sessions-close").forEach(e=>{e.addEventListener("click",()=>{e.closest("details.sessions-toggle").open=!1})})}async function p(){x();try{const e=await m();h(e)}catch{g()}}p();
