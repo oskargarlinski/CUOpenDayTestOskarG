@@ -198,8 +198,8 @@ function renderOpenDay(data: any) {
             <div class="flex flex-wrap gap-2">
               <button id="filter-all" class="font-sans text-xs px-3 py-1.5 border border-cardiff-red bg-cardiff-red text-white font-medium transition-colors">All</button>
               ${[...new Set(
-                data.topics.flatMap((t: any) => t.programs?.map((p: any) => p.programType?.type).filter(Boolean) ?? [])
-              )].map((type: any) => `
+    data.topics.flatMap((t: any) => t.programs?.map((p: any) => p.programType?.type).filter(Boolean) ?? [])
+  )].map((type: any) => `
                 <button data-filter="${type}" class="font-sans text-xs px-3 py-1.5 border border-gray-200 text-gray-500 font-medium hover:border-cardiff-red hover:text-cardiff-red transition-colors">${type}</button>
               `).join('')}
             </div>
@@ -225,6 +225,9 @@ function renderOpenDay(data: any) {
                     </summary>
                     <div class="mt-3">
                       ${topic.programs.map(renderProgram).join('')}
+                      <button class="sessions-close mt-3 w-full font-sans text-xs font-semibold text-cardiff-red hover:text-[#b8002b] transition-colors pt-3 border-t border-gray-100 text-left">
+                        Hide ${topic.programs.length} session${topic.programs.length !== 1 ? 's' : ''} ‹
+                      </button>
                     </div>
                   </details>
                 ` : ''}
@@ -236,6 +239,17 @@ function renderOpenDay(data: any) {
       </div>
     </div>
   `
+
+  wireUpSessionsToggles()
+}
+
+// Wires up the bottom "Hide sessions" buttons so clicking them closes the parent <details>.
+function wireUpSessionsToggles() {
+  document.querySelectorAll<HTMLButtonElement>('.sessions-close').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest<HTMLDetailsElement>('details.sessions-toggle')!.open = false
+    })
+  })
 }
 
 // Entry point. Shows a loading state immediately, then fetches the data.

@@ -70,6 +70,7 @@ a {
 .prog-desc .desc-less { display: none; }
 .prog-desc[open] .desc-less { display: inline; }
 
-/* Sessions toggle: strip default marker */
+/* Sessions toggle: strip default marker, hide summary when open */
 .sessions-toggle summary { list-style: none; }
 .sessions-toggle summary::-webkit-details-marker { display: none; }
+.sessions-toggle[open] > summary { display: none; }

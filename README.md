@@ -51,7 +51,7 @@ Each topic card lists its programmes with:
 - Short description with an expand/collapse toggle — clicking "More ›" replaces the short text with the full description rather than appending to it
 - Wheelchair accessibility badge where applicable
 
-Sessions are collapsed behind a "View N sessions ›" toggle by default so all cards start at a consistent height.
+Sessions are collapsed behind a "View N sessions ›" toggle by default so all cards start at a consistent height. When expanded, the toggle button is hidden and a "Hide N sessions ‹" button appears at the bottom of the card so the user doesn't have to scroll back up to close it.
 
 ### REQ-05 - Accessibility information
 Wheelchair accessibility and bike parking availability are shown as small badges on each programme entry, pulled from the location data in the feed.
