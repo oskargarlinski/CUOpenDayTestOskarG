@@ -90,7 +90,7 @@ function renderProgram(prog: any): string {
   const bikePark = prog.location?.bike_parking === 1
 
   return `
-    <div class="border-t border-gray-100 pt-3 mt-3 first:border-t-0 first:pt-0 first:mt-0">
+    <div class="border-t border-gray-100 pt-3 mt-3 first:border-t-0 first:pt-0 first:mt-0" data-program-type="${prog.programType?.type ?? ''}">
       <div class="flex items-start justify-between gap-2 mb-1">
         <span class="font-sans font-semibold text-sm text-cardiff-dark leading-snug">${prog.title}</span>
         ${prog.programType?.type ? `<span class="font-sans bg-cardiff-red/10 text-cardiff-red text-xs px-2 py-0.5 rounded font-medium shrink-0">${prog.programType.type}</span>` : ''}
@@ -205,12 +205,20 @@ function renderOpenDay(data: any) {
             </div>
           </div>
 
+          <!-- Clear filters - hidden until at least one filter is active -->
+          <button id="clear-filters" class="hidden w-full font-sans text-xs font-semibold text-gray-400 hover:text-cardiff-red transition-colors py-1 text-center">
+            ✕ Clear filters
+          </button>
+
         </aside>
 
         <!-- Topics grid -->
         <div id="topics-grid" class="flex-1 grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 items-start">
           ${data.topics.map((topic: any, i: number) => topic && topic.name ? `
-            <div class="topic-card bg-white shadow-sm border border-gray-100 flex flex-col overflow-hidden hover:shadow-md transition-shadow duration-200" style="animation-delay:${i * 60}ms">
+            <div class="topic-card bg-white shadow-sm border border-gray-100 flex flex-col overflow-hidden hover:shadow-md transition-shadow duration-200"
+              data-topic-name="${topic.name.toLowerCase()}"
+              data-program-types="${[...new Set((topic.programs ?? []).map((p: any) => p.programType?.type).filter(Boolean))].join(',')}"
+              style="animation-delay:${i * 60}ms">
               <div class="relative h-36 overflow-hidden">
                 <img src="${topic.cover_image || cuLogo}" alt="${topic.name}" class="w-full h-full object-cover" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
@@ -219,7 +227,7 @@ function renderOpenDay(data: any) {
                 <h2 class="font-display text-xl font-semibold text-cardiff-dark mb-2 leading-snug">${topic.name}</h2>
                 <p class="font-sans text-gray-500 text-sm mb-3 leading-relaxed">${topic.description || ''}</p>
                 ${topic.programs && topic.programs.length ? `
-                  <details class="sessions-toggle mt-auto pt-3 border-t border-gray-100">
+                  <details class="sessions-toggle mt-auto pt-3 border-t border-gray-100" data-total-programs="${topic.programs.length}">
                     <summary class="cursor-pointer font-sans text-xs font-semibold text-cardiff-red hover:text-[#b8002b] transition-colors">
                       View ${topic.programs.length} session${topic.programs.length !== 1 ? 's' : ''} ›
                     </summary>
@@ -234,6 +242,11 @@ function renderOpenDay(data: any) {
               </div>
             </div>
           ` : '').join('')}
+          <!-- Empty state: shown when no cards match the active filters -->
+          <div id="no-results" class="hidden col-span-full py-16 text-center">
+            <p class="font-display text-xl font-semibold text-cardiff-dark mb-2">No topics found</p>
+            <p class="font-sans text-sm text-gray-400">Try adjusting your search or clearing the filters.</p>
+          </div>
         </div>
 
       </div>
@@ -241,6 +254,107 @@ function renderOpenDay(data: any) {
   `
 
   wireUpSessionsToggles()
+  wireUpFilters()
+}
+
+// Wires up the search input and programme type filter buttons.
+// Rather than re-rendering the grid, each topic card carries data-topic-name and
+// data-program-types attributes set at render time. applyFilters() just walks the
+// existing DOM and toggles the Tailwind `hidden` class - no re-render, no flicker.
+function wireUpFilters() {
+  const searchInput = document.getElementById('topic-search') as HTMLInputElement
+  const filterAllBtn = document.getElementById('filter-all') as HTMLButtonElement
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('[data-filter]')
+  const clearBtn = document.getElementById('clear-filters') as HTMLButtonElement
+  let activeType = '' // empty string means "All"
+
+  // Reads the current state of both controls and shows/hides cards accordingly.
+  // Both filters are AND-combined: a card must satisfy the search term AND the
+  // active type to be visible.
+  function applyFilters() {
+    const query = searchInput.value.trim().toLowerCase()
+    const cards = document.querySelectorAll<HTMLElement>('.topic-card')
+    let visibleCount = 0
+
+    cards.forEach(card => {
+      const name = card.dataset.topicName ?? ''
+      const types = card.dataset.programTypes ? card.dataset.programTypes.split(',') : []
+
+      const matchesSearch = !query || name.includes(query)
+      const matchesType = !activeType || types.includes(activeType)
+
+      const visible = matchesSearch && matchesType
+      card.classList.toggle('hidden', !visible)
+      if (visible) visibleCount++
+
+      // Filter individual program entries within the card
+      const toggle = card.querySelector<HTMLElement>('.sessions-toggle')
+      if (!toggle) return
+      const summary = toggle.querySelector('summary')
+      const totalPrograms = parseInt(toggle.dataset.totalPrograms ?? '0', 10)
+      const progEntries = card.querySelectorAll<HTMLElement>('[data-program-type]')
+
+      const closeBtn = toggle.querySelector<HTMLButtonElement>('.sessions-close')
+      if (!activeType) {
+        progEntries.forEach(e => e.classList.remove('hidden'))
+        if (summary) summary.textContent = `View ${totalPrograms} session${totalPrograms !== 1 ? 's' : ''} ›`
+        if (closeBtn) closeBtn.textContent = `Hide ${totalPrograms} session${totalPrograms !== 1 ? 's' : ''} ‹`
+      } else {
+        let filteredCount = 0
+        progEntries.forEach(entry => {
+          const progType = entry.dataset.programType ?? ''
+          const show = progType === activeType
+          entry.classList.toggle('hidden', !show)
+          if (show) filteredCount++
+        })
+        if (summary) summary.textContent = `View ${filteredCount} session${filteredCount !== 1 ? 's' : ''} ›`
+        if (closeBtn) closeBtn.textContent = `Hide ${filteredCount} session${filteredCount !== 1 ? 's' : ''} ‹`
+      }
+    })
+
+    // Show the empty state only when every card is hidden.
+    document.getElementById('no-results')!.classList.toggle('hidden', visibleCount > 0)
+
+    // Show the clear button only when at least one filter is active.
+    clearBtn.classList.toggle('hidden', !query && !activeType)
+  }
+
+  // Updates button visual state: the active button gets the red fill,
+  // all others revert to the outlined style.
+  function setActiveButton(activeBtn: HTMLButtonElement) {
+    const allBtns = [filterAllBtn, ...Array.from(filterBtns)]
+    allBtns.forEach(btn => {
+      const isActive = btn === activeBtn
+      btn.classList.toggle('bg-cardiff-red', isActive)
+      btn.classList.toggle('text-white', isActive)
+      btn.classList.toggle('border-cardiff-red', isActive)
+      btn.classList.toggle('border-gray-200', !isActive)
+      btn.classList.toggle('text-gray-500', !isActive)
+    })
+  }
+
+  searchInput.addEventListener('input', applyFilters)
+
+  filterAllBtn.addEventListener('click', () => {
+    activeType = ''
+    setActiveButton(filterAllBtn)
+    applyFilters()
+  })
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeType = btn.dataset.filter ?? ''
+      setActiveButton(btn)
+      applyFilters()
+    })
+  })
+
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = ''
+    activeType = ''
+    setActiveButton(filterAllBtn)
+    applyFilters()
+  })
 }
 
 // Wires up the bottom "Hide sessions" buttons so clicking them closes the parent <details>.

@@ -43,6 +43,14 @@ Full-width cover image with a gradient overlay. Event title, formatted date rang
 ### REQ-02 - Remove demo banner
 The Vite/TypeScript demo content has been removed. The page is fully branded.
 
+### REQ-03 - Search and filter
+The sidebar provides two combinable filters:
+
+- **Search** - filters cards by topic name (case-insensitive, live as you type)
+- **Programme type** - filters by type (e.g. Talk, Tour, Advice); only one type can be active at a time; "All" clears the type filter
+
+Both filters are AND-combined. When a programme type filter is active, sessions within each card are also filtered so only matching sessions are shown - the "View N sessions ›" and "Hide N sessions ‹" counts update to reflect the filtered number. A "Clear filters" button appears whenever either filter is active.
+
 ### REQ-04 - Programme details per card
 Each topic card lists its programmes with:
 - School name
@@ -63,9 +71,6 @@ Wheelchair accessibility and bike parking availability are shown as small badges
 ---
 
 ## What's Still In Progress
-
-### REQ-03 - Search and filter
-The sidebar layout and UI controls (search input, programme type filter buttons) are already in place and populated from live data. The filter logic still needs to be wired up.
 
 ### REQ-07 - Footer
 Not yet started.
