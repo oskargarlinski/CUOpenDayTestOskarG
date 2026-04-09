@@ -1,11 +1,11 @@
-(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))n(r);new MutationObserver(r=>{for(const a of r)if(a.type==="childList")for(const i of a.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&n(i)}).observe(document,{childList:!0,subtree:!0});function t(r){const a={};return r.integrity&&(a.integrity=r.integrity),r.referrerPolicy&&(a.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?a.credentials="include":r.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(r){if(r.ep)return;r.ep=!0;const a=t(r);fetch(r.href,a)}})();const d="/CUOpenDayTestOskarG/cu-logo.svg";async function m(){const s=await fetch("/CUOpenDayTestOskarG/api/OpenDay.json");if(!s.ok)throw new Error(`HTTP ${s.status}`);return s.json()}function x(){const e=document.querySelector("#app");e.innerHTML=`
+(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const a of s)if(a.type==="childList")for(const o of a.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&n(o)}).observe(document,{childList:!0,subtree:!0});function t(s){const a={};return s.integrity&&(a.integrity=s.integrity),s.referrerPolicy&&(a.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?a.credentials="include":s.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(s){if(s.ep)return;s.ep=!0;const a=t(s);fetch(s.href,a)}})();const w="/CUOpenDayTestOskarG/cu-logo.svg";async function B(){const r=await fetch("/CUOpenDayTestOskarG/api/OpenDay.json");if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}function _(){const e=document.querySelector("#app");e.innerHTML=`
     <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]">
       <div class="text-center">
         <div class="spinner mx-auto mb-5"></div>
         <p class="font-sans text-cardiff-dark text-base tracking-wide">Loading Open Day programme…</p>
       </div>
     </div>
-  `}function g(){const e=document.querySelector("#app");e.innerHTML=`
+  `}function C(){const e=document.querySelector("#app");e.innerHTML=`
     <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]">
       <div class="text-center max-w-sm mx-auto px-6">
         <div class="w-12 h-12 bg-cardiff-red/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -20,8 +20,8 @@
         </button>
       </div>
     </div>
-  `,document.getElementById("retry-btn").addEventListener("click",p)}function c(e,s){const t=new Date(e),n=new Date(s),r=t.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),a=t.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}),i=n.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});return`${r}: ${a}-${i}`}function f(e){return{U:"Undergraduate",P:"Postgraduate"}[e]??e}function u(e){if(!e?.title)return"";const s=e.start_time?new Date(e.start_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,t=e.end_time?new Date(e.end_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,n=s?t?`${s}–${t}`:s:null,r=e.location?.title??"",a=e.location?.address??"",i=[r,a].filter(Boolean).join(", "),o=e.location?.accessible===1,l=e.location?.bike_parking===1;return`
-    <div class="border-t border-gray-100 pt-3 mt-3 first:border-t-0 first:pt-0 first:mt-0">
+  `,document.getElementById("retry-btn").addEventListener("click",$)}function v(e,r){const t=new Date(e),n=new Date(r),s=t.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),a=t.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}),o=n.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});return`${s}: ${a}-${o}`}function k(e){return{U:"Undergraduate",P:"Postgraduate"}[e]??e}function D(e){if(!e?.title)return"";const r=e.start_time?new Date(e.start_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,t=e.end_time?new Date(e.end_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,n=r?t?`${r}–${t}`:r:null,s=e.location?.title??"",a=e.location?.address??"",o=[s,a].filter(Boolean).join(", "),i=e.location?.accessible===1,f=e.location?.bike_parking===1;return`
+    <div class="border-t border-gray-100 pt-3 mt-3 first:border-t-0 first:pt-0 first:mt-0" data-program-type="${e.programType?.type??""}">
       <div class="flex items-start justify-between gap-2 mb-1">
         <span class="font-sans font-semibold text-sm text-cardiff-dark leading-snug">${e.title}</span>
         ${e.programType?.type?`<span class="font-sans bg-cardiff-red/10 text-cardiff-red text-xs px-2 py-0.5 rounded font-medium shrink-0">${e.programType.type}</span>`:""}
@@ -32,15 +32,15 @@
           <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/></svg>
           ${n}
         </span>`:""}
-        ${i?`<span class="flex items-center gap-1">
+        ${o?`<span class="flex items-center gap-1">
           <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-width="2"/><circle cx="12" cy="9" r="2.5" stroke-width="2"/></svg>
-          ${i}
+          ${o}
         </span>`:""}
       </div>
-      ${o||l?`
+      ${i||f?`
         <div class="flex gap-2 mb-1.5">
-          ${o?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">♿ Accessible</span>':""}
-          ${l?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">🚲 Bike parking</span>':""}
+          ${i?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">♿ Accessible</span>':""}
+          ${f?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">🚲 Bike parking</span>':""}
         </div>
       `:""}
       ${e.description_short?`
@@ -53,7 +53,7 @@
         </details>
       `:""}
     </div>
-  `}function h(e){const s=document.querySelector("#app");if(!e.topics){s.innerHTML='<p class="text-red-600">No Open Day data found.</p>';return}s.innerHTML=`
+  `}function O(e){const r=document.querySelector("#app");if(!e.topics){r.innerHTML='<p class="text-red-600">No Open Day data found.</p>';return}r.innerHTML=`
     <!-- Utility bar: mirrors the black top bar on cardiff.ac.uk with secondary navigation links. -->
     <div class="bg-cardiff-dark">
       <div class="max-w-screen-2xl mx-auto px-4 py-2.5 flex justify-end items-center gap-6">
@@ -68,7 +68,7 @@
     <header class="bg-white border-b border-gray-100 shadow-sm">
       <div class="max-w-screen-2xl mx-auto px-4 py-3 flex items-center">
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="shrink-0">
-          <img src="${d}" alt="Cardiff University" class="h-14 w-auto" />
+          <img src="${w}" alt="Cardiff University" class="h-14 w-auto" />
         </a>
         <nav class="hidden md:flex items-center gap-8 flex-1 pl-12">
           <a href="https://www.cardiff.ac.uk/study" target="_blank" rel="noopener noreferrer" class="font-sans text-cardiff-dark text-base font-medium hover:text-cardiff-red transition-colors duration-150">Study</a>
@@ -83,9 +83,9 @@
       <img src="${e.cover_image}" alt="Open Day banner" class="w-full h-64 sm:h-[28rem] object-cover" />
       <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end">
         <div class="max-w-screen-2xl mx-auto px-6 pb-10 w-full">
-          <span class="inline-block font-sans bg-cardiff-red text-white text-xs font-semibold px-3 py-1 uppercase tracking-widest mb-4">${f(e.type)}</span>
+          <span class="inline-block font-sans bg-cardiff-red text-white text-xs font-semibold px-3 py-1 uppercase tracking-widest mb-4">${k(e.type)}</span>
           <h1 class="font-display text-white text-3xl sm:text-5xl font-bold mb-3 leading-tight">${e.description.trim()}</h1>
-          <p class="font-sans text-white/80 text-base sm:text-lg">${c(e.start_time,e.end_time)}</p>
+          <p class="font-sans text-white/80 text-base sm:text-lg">${v(e.start_time,e.end_time)}</p>
         </div>
       </div>
     </div>
@@ -98,8 +98,8 @@
 
           <!-- Event summary -->
           <div class="bg-white border border-gray-100 shadow-sm p-5 border-l-4 border-l-cardiff-red">
-            <span class="inline-block font-sans bg-cardiff-red text-white text-xs font-semibold px-2.5 py-1 uppercase tracking-widest mb-3">${f(e.type)}</span>
-            <p class="font-sans text-sm text-cardiff-dark leading-relaxed">${c(e.start_time,e.end_time)}</p>
+            <span class="inline-block font-sans bg-cardiff-red text-white text-xs font-semibold px-2.5 py-1 uppercase tracking-widest mb-3">${k(e.type)}</span>
+            <p class="font-sans text-sm text-cardiff-dark leading-relaxed">${v(e.start_time,e.end_time)}</p>
           </div>
 
           <!-- Search -->
@@ -119,26 +119,34 @@
             </div>
           </div>
 
+          <!-- Clear filters - hidden until at least one filter is active -->
+          <button id="clear-filters" class="hidden w-full font-sans text-xs font-semibold text-gray-400 hover:text-cardiff-red transition-colors py-1 text-center">
+            ✕ Clear filters
+          </button>
+
         </aside>
 
         <!-- Topics grid -->
         <div id="topics-grid" class="flex-1 grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 items-start">
           ${e.topics.map((t,n)=>t&&t.name?`
-            <div class="topic-card bg-white shadow-sm border border-gray-100 flex flex-col overflow-hidden hover:shadow-md transition-shadow duration-200" style="animation-delay:${n*60}ms">
+            <div class="topic-card bg-white shadow-sm border border-gray-100 flex flex-col overflow-hidden hover:shadow-md transition-shadow duration-200"
+              data-topic-name="${t.name.toLowerCase()}"
+              data-program-types="${[...new Set((t.programs??[]).map(s=>s.programType?.type).filter(Boolean))].join(",")}"
+              style="animation-delay:${n*60}ms">
               <div class="relative h-36 overflow-hidden">
-                <img src="${t.cover_image||d}" alt="${t.name}" class="w-full h-full object-cover" />
+                <img src="${t.cover_image||w}" alt="${t.name}" class="w-full h-full object-cover" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
               </div>
               <div class="flex flex-col flex-1 p-5 border-l-4 border-cardiff-red">
                 <h2 class="font-display text-xl font-semibold text-cardiff-dark mb-2 leading-snug">${t.name}</h2>
                 <p class="font-sans text-gray-500 text-sm mb-3 leading-relaxed">${t.description||""}</p>
                 ${t.programs&&t.programs.length?`
-                  <details class="sessions-toggle mt-auto pt-3 border-t border-gray-100">
+                  <details class="sessions-toggle mt-auto pt-3 border-t border-gray-100" data-total-programs="${t.programs.length}">
                     <summary class="cursor-pointer font-sans text-xs font-semibold text-cardiff-red hover:text-[#b8002b] transition-colors">
                       View ${t.programs.length} session${t.programs.length!==1?"s":""} ›
                     </summary>
                     <div class="mt-3">
-                      ${t.programs.map(u).join("")}
+                      ${t.programs.map(D).join("")}
                       <button class="sessions-close mt-3 w-full font-sans text-xs font-semibold text-cardiff-red hover:text-[#b8002b] transition-colors pt-3 border-t border-gray-100 text-left">
                         Hide ${t.programs.length} session${t.programs.length!==1?"s":""} ‹
                       </button>
@@ -148,8 +156,13 @@
               </div>
             </div>
           `:"").join("")}
+          <!-- Empty state: shown when no cards match the active filters -->
+          <div id="no-results" class="hidden col-span-full py-16 text-center">
+            <p class="font-display text-xl font-semibold text-cardiff-dark mb-2">No topics found</p>
+            <p class="font-sans text-sm text-gray-400">Try adjusting your search or clearing the filters.</p>
+          </div>
         </div>
 
       </div>
     </div>
-  `,b()}function b(){document.querySelectorAll(".sessions-close").forEach(e=>{e.addEventListener("click",()=>{e.closest("details.sessions-toggle").open=!1})})}async function p(){x();try{const e=await m();h(e)}catch{g()}}p();
+  `,A(),j()}function j(){const e=document.getElementById("topic-search"),r=document.getElementById("filter-all"),t=document.querySelectorAll("[data-filter]"),n=document.getElementById("clear-filters");let s="";function a(){const i=e.value.trim().toLowerCase(),f=document.querySelectorAll(".topic-card");let c=0;f.forEach(l=>{const L=l.dataset.topicName??"",T=l.dataset.programTypes?l.dataset.programTypes.split(","):[],S=!i||L.includes(i),E=!s||T.includes(s),u=S&&E;l.classList.toggle("hidden",!u),u&&c++;const p=l.querySelector(".sessions-toggle");if(!p)return;const m=p.querySelector("summary"),g=parseInt(p.dataset.totalPrograms??"0",10),h=l.querySelectorAll("[data-program-type]"),x=p.querySelector(".sessions-close");if(!s)h.forEach(d=>d.classList.remove("hidden")),m&&(m.textContent=`View ${g} session${g!==1?"s":""} ›`),x&&(x.textContent=`Hide ${g} session${g!==1?"s":""} ‹`);else{let d=0;h.forEach(y=>{const b=(y.dataset.programType??"")===s;y.classList.toggle("hidden",!b),b&&d++}),m&&(m.textContent=`View ${d} session${d!==1?"s":""} ›`),x&&(x.textContent=`Hide ${d} session${d!==1?"s":""} ‹`)}}),document.getElementById("no-results").classList.toggle("hidden",c>0),n.classList.toggle("hidden",!i&&!s)}function o(i){[r,...Array.from(t)].forEach(c=>{const l=c===i;c.classList.toggle("bg-cardiff-red",l),c.classList.toggle("text-white",l),c.classList.toggle("border-cardiff-red",l),c.classList.toggle("border-gray-200",!l),c.classList.toggle("text-gray-500",!l)})}e.addEventListener("input",a),r.addEventListener("click",()=>{s="",o(r),a()}),t.forEach(i=>{i.addEventListener("click",()=>{s=i.dataset.filter??"",o(i),a()})}),n.addEventListener("click",()=>{e.value="",s="",o(r),a()})}function A(){document.querySelectorAll(".sessions-close").forEach(e=>{e.addEventListener("click",()=>{e.closest("details.sessions-toggle").open=!1})})}async function $(){_();try{const e=await B();O(e)}catch{C()}}$();
