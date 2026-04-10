@@ -1,12 +1,12 @@
-(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const a of s)if(a.type==="childList")for(const o of a.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&n(o)}).observe(document,{childList:!0,subtree:!0});function t(s){const a={};return s.integrity&&(a.integrity=s.integrity),s.referrerPolicy&&(a.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?a.credentials="include":s.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(s){if(s.ep)return;s.ep=!0;const a=t(s);fetch(s.href,a)}})();const g="/CUOpenDayTestOskarG/cu-logo.svg";async function E(){const r=await fetch("/CUOpenDayTestOskarG/api/OpenDay.json");if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}function S(){const e=document.querySelector("#app");e.innerHTML=`
-    <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]">
+(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const a of s)if(a.type==="childList")for(const o of a.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&n(o)}).observe(document,{childList:!0,subtree:!0});function t(s){const a={};return s.integrity&&(a.integrity=s.integrity),s.referrerPolicy&&(a.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?a.credentials="include":s.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(s){if(s.ep)return;s.ep=!0;const a=t(s);fetch(s.href,a)}})();const g="/CUOpenDayTestOskarG/cu-logo.svg";async function S(){const r=await fetch("/CUOpenDayTestOskarG/api/OpenDay.json");if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}function B(){const e=document.querySelector("#app");e.innerHTML=`
+    <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]" role="status" aria-label="Loading Open Day programme">
       <div class="text-center">
         <div class="spinner mx-auto mb-5"></div>
         <p class="font-sans text-cardiff-dark text-base tracking-wide">Loading Open Day programme…</p>
       </div>
     </div>
-  `}function B(){const e=document.querySelector("#app");e.innerHTML=`
-    <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]">
+  `}function D(){const e=document.querySelector("#app");e.innerHTML=`
+    <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]" role="alert">
       <div class="text-center max-w-sm mx-auto px-6">
         <div class="w-12 h-12 bg-cardiff-red/10 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg class="w-6 h-6 text-cardiff-red" fill="none" stroke="#D50032" viewBox="0 0 24 24" aria-hidden="true">
@@ -20,7 +20,7 @@
         </button>
       </div>
     </div>
-  `,document.getElementById("retry-btn").addEventListener("click",$)}function v(e,r){const t=new Date(e),n=new Date(r),s=t.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),a=t.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}),o=n.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});return`${s}: ${a}-${o}`}function k(e){return{U:"Undergraduate",P:"Postgraduate"}[e]??e}function D(e){if(!e?.title)return"";const r=e.start_time?new Date(e.start_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,t=e.end_time?new Date(e.end_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,n=r?t?`${r}–${t}`:r:null,s=e.location?.title??"",a=e.location?.address??"",o=[s,a].filter(Boolean).join(", "),i=e.location?.accessible===1,f=e.location?.bike_parking===1;return`
+  `,document.getElementById("retry-btn").addEventListener("click",L)}function k(e,r){const t=new Date(e),n=new Date(r),s=t.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),a=t.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}),o=n.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});return`${s}: ${a}-${o}`}function $(e){return{U:"Undergraduate",P:"Postgraduate"}[e]??e}function A(e){if(!e?.title)return"";const r=e.start_time?new Date(e.start_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,t=e.end_time?new Date(e.end_time).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):null,n=r?t?`${r}–${t}`:r:null,s=e.location?.title??"",a=e.location?.address??"",o=[s,a].filter(Boolean).join(", "),l=e.location?.accessible===1,p=e.location?.bike_parking===1;return`
     <div class="border-t border-gray-100 pt-3 mt-3 first:border-t-0 first:pt-0 first:mt-0" data-program-type="${e.programType?.type??""}">
       <div class="flex items-start justify-between gap-2 mb-1">
         <span class="font-sans font-semibold text-sm text-cardiff-dark leading-snug">${e.title}</span>
@@ -29,18 +29,18 @@
       ${e.school?.name?`<p class="font-sans text-xs text-gray-400 mb-1.5 font-medium uppercase tracking-wide">${e.school.name}</p>`:""}
       <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-gray-400 mb-1.5 font-sans">
         ${n?`<span class="flex items-center gap-1">
-          <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="w-3 h-3 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/></svg>
           ${n}
         </span>`:""}
         ${o?`<span class="flex items-center gap-1">
-          <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-width="2"/><circle cx="12" cy="9" r="2.5" stroke-width="2"/></svg>
+          <svg class="w-3 h-3 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-width="2"/><circle cx="12" cy="9" r="2.5" stroke-width="2"/></svg>
           ${o}
         </span>`:""}
       </div>
-      ${i||f?`
+      ${l||p?`
         <div class="flex gap-2 mb-1.5">
-          ${i?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">♿ Accessible</span>':""}
-          ${f?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">🚲 Bike parking</span>':""}
+          ${l?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded" aria-label="Wheelchair accessible"><span aria-hidden="true">♿</span> Accessible</span>':""}
+          ${p?'<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded" aria-label="Bike parking available"><span aria-hidden="true">🚲</span> Bike parking</span>':""}
         </div>
       `:""}
       ${e.description_short?`
@@ -53,9 +53,10 @@
         </details>
       `:""}
     </div>
-  `}function A(e){const r=document.querySelector("#app");if(!e.topics){r.innerHTML='<p class="text-red-600">No Open Day data found.</p>';return}r.innerHTML=`
+  `}function O(e){const r=document.querySelector("#app");if(!e.topics){r.innerHTML='<p class="text-red-600">No Open Day data found.</p>';return}r.innerHTML=`
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-cardiff-red focus:text-white focus:px-4 focus:py-2 focus:text-sm font-sans">Skip to main content</a>
     <!-- Utility bar: mirrors the black top bar on cardiff.ac.uk with secondary navigation links. -->
-    <div class="bg-cardiff-dark">
+    <nav class="bg-cardiff-dark" aria-label="Utility navigation">
       <div class="max-w-screen-2xl mx-auto px-4 py-2.5 flex justify-end items-center gap-6">
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="font-sans text-white/70 text-xs hover:text-white transition-colors">Teaching excellence</a>
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="font-sans text-white/70 text-xs hover:text-white transition-colors">Alumni</a>
@@ -63,14 +64,14 @@
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="font-sans text-white/70 text-xs hover:text-white transition-colors">News</a>
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="font-sans text-white/70 text-xs hover:text-white transition-colors">Events</a>
       </div>
-    </div>
+    </nav>
     <!-- Main nav bar: white background with CU logo on the left, primary nav links, and a Cymraeg toggle on the right. -->
     <header class="bg-white border-b border-gray-100 shadow-sm">
       <div class="max-w-screen-2xl mx-auto px-4 py-3 flex items-center">
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="shrink-0">
           <img src="${g}" alt="Cardiff University" class="h-14 w-auto" />
         </a>
-        <nav class="hidden md:flex items-center gap-8 flex-1 pl-12">
+        <nav class="hidden md:flex items-center gap-8 flex-1 pl-12" aria-label="Main navigation">
           <a href="https://www.cardiff.ac.uk/study" target="_blank" rel="noopener noreferrer" class="font-sans text-cardiff-dark text-base font-medium hover:text-cardiff-red transition-colors duration-150">Study</a>
           <a href="https://www.cardiff.ac.uk/research" target="_blank" rel="noopener noreferrer" class="font-sans text-cardiff-dark text-base font-medium hover:text-cardiff-red transition-colors duration-150">Research</a>
           <a href="https://www.cardiff.ac.uk/about" target="_blank" rel="noopener noreferrer" class="font-sans text-cardiff-dark text-base font-medium hover:text-cardiff-red transition-colors duration-150">About</a>
@@ -78,14 +79,15 @@
         <a href="" rel="noopener noreferrer" class="ml-auto font-sans border border-cardiff-dark/40 text-cardiff-dark text-xs px-3 py-1.5 tracking-wide hover:border-cardiff-dark hover:bg-cardiff-dark hover:text-white transition-all duration-150">Cymraeg</a>
       </div>
     </header>
+    <main id="main-content">
     <!-- Hero image: full-width cover photo with a gradient overlay for legible white text. -->
     <div class="relative">
       <img src="${e.cover_image}" alt="Open Day banner" class="w-full h-64 sm:h-[28rem] object-cover" />
       <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end">
         <div class="max-w-screen-2xl mx-auto px-6 pb-10 w-full">
-          <span class="inline-block font-sans bg-cardiff-red text-white text-xs font-semibold px-3 py-1 uppercase tracking-widest mb-4">${k(e.type)}</span>
+          <span class="inline-block font-sans bg-cardiff-red text-white text-xs font-semibold px-3 py-1 uppercase tracking-widest mb-4">${$(e.type)}</span>
           <h1 class="font-display text-white text-3xl sm:text-5xl font-bold mb-3 leading-tight">${e.description.trim()}</h1>
-          <p class="font-sans text-white/80 text-base sm:text-lg">${v(e.start_time,e.end_time)}</p>
+          <p class="font-sans text-white/80 text-base sm:text-lg">${k(e.start_time,e.end_time)}</p>
         </div>
       </div>
     </div>
@@ -94,39 +96,40 @@
       <div class="max-w-screen-2xl mx-auto flex flex-col lg:flex-row gap-6 items-start">
 
         <!-- Sidebar: event summary + filter controls (wired up in REQ-03) -->
-        <aside class="w-full lg:w-64 xl:w-72 shrink-0 lg:sticky lg:top-6 flex flex-col gap-4">
+        <aside class="w-full lg:w-64 xl:w-72 shrink-0 lg:sticky lg:top-6 flex flex-col gap-4" aria-label="Filters">
 
           <!-- Event summary -->
           <div class="bg-white border border-gray-100 shadow-sm p-5 border-l-4 border-l-cardiff-red">
-            <span class="inline-block font-sans bg-cardiff-red text-white text-xs font-semibold px-2.5 py-1 uppercase tracking-widest mb-3">${k(e.type)}</span>
-            <p class="font-sans text-sm text-cardiff-dark leading-relaxed">${v(e.start_time,e.end_time)}</p>
+            <span class="inline-block font-sans bg-cardiff-red text-white text-xs font-semibold px-2.5 py-1 uppercase tracking-widest mb-3">${$(e.type)}</span>
+            <p class="font-sans text-sm text-cardiff-dark leading-relaxed">${k(e.start_time,e.end_time)}</p>
           </div>
 
           <!-- Search -->
-          <div class="bg-white border border-gray-100 shadow-sm p-5">
+          <div class="bg-white border border-gray-100 shadow-sm p-5" role="search">
             <label for="topic-search" class="font-sans text-xs font-semibold text-cardiff-dark uppercase tracking-wide block mb-2">Search topics</label>
             <input type="text" id="topic-search" placeholder="e.g. Architecture…" class="w-full font-sans text-sm border border-gray-200 px-3 py-2 text-cardiff-dark placeholder-gray-300 focus:outline-none focus:border-cardiff-red transition-colors" />
           </div>
 
           <!-- Programme type filter -->
-          <div class="bg-white border border-gray-100 shadow-sm p-5">
-            <p class="font-sans text-xs font-semibold text-cardiff-dark uppercase tracking-wide mb-3">Programme type</p>
+          <div class="bg-white border border-gray-100 shadow-sm p-5" role="group" aria-labelledby="filter-type-label">
+            <p id="filter-type-label" class="font-sans text-xs font-semibold text-cardiff-dark uppercase tracking-wide mb-3">Programme type</p>
             <div class="flex flex-wrap gap-2">
-              <button id="filter-all" class="font-sans text-xs px-3 py-1.5 border border-cardiff-red bg-cardiff-red text-white font-medium transition-colors">All</button>
+              <button id="filter-all" aria-pressed="true" class="font-sans text-xs px-3 py-1.5 border border-cardiff-red bg-cardiff-red text-white font-medium transition-colors">All</button>
               ${[...new Set(e.topics.flatMap(t=>t.programs?.map(n=>n.programType?.type).filter(Boolean)??[]))].map(t=>`
-                <button data-filter="${t}" class="font-sans text-xs px-3 py-1.5 border border-gray-200 text-gray-500 font-medium hover:border-cardiff-red hover:text-cardiff-red transition-colors">${t}</button>
+                <button data-filter="${t}" aria-pressed="false" class="font-sans text-xs px-3 py-1.5 border border-gray-200 text-gray-500 font-medium hover:border-cardiff-red hover:text-cardiff-red transition-colors">${t}</button>
               `).join("")}
             </div>
           </div>
 
           <!-- Clear filters - hidden until at least one filter is active -->
-          <button id="clear-filters" class="hidden w-full font-sans text-xs font-semibold text-gray-400 hover:text-cardiff-red transition-colors py-1 text-center">
-            ✕ Clear filters
+          <button id="clear-filters" class="hidden w-full font-sans text-xs font-semibold text-gray-400 hover:text-cardiff-red transition-colors py-1 text-center" aria-label="Clear filters">
+            <span aria-hidden="true">✕</span> Clear filters
           </button>
 
         </aside>
 
         <!-- Topics grid -->
+        <p id="filter-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
         <div id="topics-grid" class="flex-1 grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 items-start">
           ${e.topics.map((t,n)=>t&&t.name?`
             <div class="topic-card bg-white shadow-sm border border-gray-100 flex flex-col overflow-hidden hover:shadow-md transition-shadow duration-200"
@@ -146,7 +149,7 @@
                       View ${t.programs.length} session${t.programs.length!==1?"s":""} ›
                     </summary>
                     <div class="mt-3">
-                      ${t.programs.map(D).join("")}
+                      ${t.programs.map(A).join("")}
                       <button class="sessions-close mt-3 w-full font-sans text-xs font-semibold text-cardiff-red hover:text-[#b8002b] transition-colors pt-3 border-t border-gray-100 text-left">
                         Hide ${t.programs.length} session${t.programs.length!==1?"s":""} ‹
                       </button>
@@ -165,6 +168,7 @@
 
       </div>
     </div>
+    </main>
 
     <!-- Footer -->
     <footer class="bg-cardiff-dark text-white">
@@ -222,4 +226,4 @@
         </div>
       </div>
     </footer>
-  `,j(),O()}function O(){const e=document.getElementById("topic-search"),r=document.getElementById("filter-all"),t=document.querySelectorAll("[data-filter]"),n=document.getElementById("clear-filters");let s="";function a(){const i=e.value.trim().toLowerCase(),f=document.querySelectorAll(".topic-card");let c=0;f.forEach(l=>{const L=l.dataset.topicName??"",_=l.dataset.programTypes?l.dataset.programTypes.split(","):[],T=!i||L.includes(i),C=!s||_.includes(s),u=T&&C;l.classList.toggle("hidden",!u),u&&c++;const p=l.querySelector(".sessions-toggle");if(!p)return;const x=p.querySelector("summary"),m=parseInt(p.dataset.totalPrograms??"0",10),w=l.querySelectorAll("[data-program-type]"),h=p.querySelector(".sessions-close");if(!s)w.forEach(d=>d.classList.remove("hidden")),x&&(x.textContent=`View ${m} session${m!==1?"s":""} ›`),h&&(h.textContent=`Hide ${m} session${m!==1?"s":""} ‹`);else{let d=0;w.forEach(b=>{const y=(b.dataset.programType??"")===s;b.classList.toggle("hidden",!y),y&&d++}),x&&(x.textContent=`View ${d} session${d!==1?"s":""} ›`),h&&(h.textContent=`Hide ${d} session${d!==1?"s":""} ‹`)}}),document.getElementById("no-results").classList.toggle("hidden",c>0),n.classList.toggle("hidden",!i&&!s)}function o(i){[r,...Array.from(t)].forEach(c=>{const l=c===i;c.classList.toggle("bg-cardiff-red",l),c.classList.toggle("text-white",l),c.classList.toggle("border-cardiff-red",l),c.classList.toggle("border-gray-200",!l),c.classList.toggle("text-gray-500",!l)})}e.addEventListener("input",a),r.addEventListener("click",()=>{s="",o(r),a()}),t.forEach(i=>{i.addEventListener("click",()=>{s=i.dataset.filter??"",o(i),a()})}),n.addEventListener("click",()=>{e.value="",s="",o(r),a()})}function j(){document.querySelectorAll(".sessions-close").forEach(e=>{e.addEventListener("click",()=>{e.closest("details.sessions-toggle").open=!1})})}async function $(){S();try{const e=await E();A(e)}catch{B()}}$();
+  `,P(),j()}function j(){const e=document.getElementById("topic-search"),r=document.getElementById("filter-all"),t=document.querySelectorAll("[data-filter]"),n=document.getElementById("clear-filters");let s="";function a(){const l=e.value.trim().toLowerCase(),p=document.querySelectorAll(".topic-card");let i=0;p.forEach(f=>{const _=f.dataset.topicName??"",T=f.dataset.programTypes?f.dataset.programTypes.split(","):[],C=!l||_.includes(l),E=!s||T.includes(s),w=C&&E;f.classList.toggle("hidden",!w),w&&i++;const m=f.querySelector(".sessions-toggle");if(!m)return;const x=m.querySelector("summary"),u=parseInt(m.dataset.totalPrograms??"0",10),b=f.querySelectorAll("[data-program-type]"),h=m.querySelector(".sessions-close");if(!s)b.forEach(d=>d.classList.remove("hidden")),x&&(x.textContent=`View ${u} session${u!==1?"s":""} ›`),h&&(h.textContent=`Hide ${u} session${u!==1?"s":""} ‹`);else{let d=0;b.forEach(y=>{const v=(y.dataset.programType??"")===s;y.classList.toggle("hidden",!v),v&&d++}),x&&(x.textContent=`View ${d} session${d!==1?"s":""} ›`),h&&(h.textContent=`Hide ${d} session${d!==1?"s":""} ‹`)}}),document.getElementById("no-results").classList.toggle("hidden",i>0);const c=document.getElementById("filter-status");c&&(c.textContent=i>0?`Showing ${i} topic${i!==1?"s":""}`:"No topics found"),n.classList.toggle("hidden",!l&&!s)}function o(l){[r,...Array.from(t)].forEach(i=>{const c=i===l;i.classList.toggle("bg-cardiff-red",c),i.classList.toggle("text-white",c),i.classList.toggle("border-cardiff-red",c),i.classList.toggle("border-gray-200",!c),i.classList.toggle("text-gray-500",!c),i.setAttribute("aria-pressed",c?"true":"false")})}e.addEventListener("input",a),r.addEventListener("click",()=>{s="",o(r),a()}),t.forEach(l=>{l.addEventListener("click",()=>{s=l.dataset.filter??"",o(l),a()})}),n.addEventListener("click",()=>{e.value="",s="",o(r),a()})}function P(){document.querySelectorAll(".sessions-close").forEach(e=>{e.addEventListener("click",()=>{e.closest("details.sessions-toggle").open=!1})})}async function L(){B();try{const e=await S();O(e)}catch{D()}}L();
