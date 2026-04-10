@@ -251,6 +251,63 @@ function renderOpenDay(data: any) {
 
       </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-cardiff-dark text-white">
+      <div class="max-w-screen-2xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <!-- Branding -->
+        <div class="lg:col-span-1">
+          <img src="${cuLogo}" alt="Cardiff University" class="h-12 w-auto mb-4 " />
+          <p class="font-sans text-white/60 text-sm leading-relaxed">Cardiff University Open Day Programme - explore our topics, sessions, and events.</p>
+        </div>
+
+        <!-- Explore -->
+        <div>
+          <p class="font-sans text-xs font-semibold text-white/40 uppercase tracking-widest mb-4">Explore</p>
+          <ul class="space-y-2.5">
+            <li><a href="https://www.cardiff.ac.uk/study" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Undergraduate study</a></li>
+            <li><a href="https://www.cardiff.ac.uk/study/postgraduate" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Postgraduate study</a></li>
+            <li><a href="https://www.cardiff.ac.uk/study/open-days" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Open Days</a></li>
+            <li><a href="https://www.cardiff.ac.uk/research" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Research</a></li>
+          </ul>
+        </div>
+
+        <!-- University -->
+        <div>
+          <p class="font-sans text-xs font-semibold text-white/40 uppercase tracking-widest mb-4">University</p>
+          <ul class="space-y-2.5">
+            <li><a href="https://www.cardiff.ac.uk/about" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">About Cardiff</a></li>
+            <li><a href="https://www.cardiff.ac.uk/news" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">News</a></li>
+            <li><a href="https://www.cardiff.ac.uk/events" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Events</a></li>
+            <li><a href="https://www.cardiff.ac.uk/alumni" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Alumni</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <p class="font-sans text-xs font-semibold text-white/40 uppercase tracking-widest mb-4">Contact</p>
+          <ul class="space-y-2.5">
+            <li><a href="https://www.cardiff.ac.uk/contact-us" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Contact us</a></li>
+            <li><a href="https://www.cardiff.ac.uk/maps" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Campus maps</a></li>
+            <li><a href="https://www.cardiff.ac.uk/cymraeg" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Cymraeg</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p class="font-sans text-xs text-white/40">&copy; ${new Date().getFullYear()} Cardiff University. All rights reserved.</p>
+          <div class="flex gap-5">
+            <a href="https://www.cardiff.ac.uk/privacy-policy" target="_blank" rel="noopener noreferrer" class="font-sans text-xs text-white/40 hover:text-white/70 transition-colors">Privacy</a>
+            <a href="https://www.cardiff.ac.uk/cookies" target="_blank" rel="noopener noreferrer" class="font-sans text-xs text-white/40 hover:text-white/70 transition-colors">Cookies</a>
+            <a href="https://www.cardiff.ac.uk/accessibility" target="_blank" rel="noopener noreferrer" class="font-sans text-xs text-white/40 hover:text-white/70 transition-colors">Accessibility</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   `
 
   wireUpSessionsToggles()
