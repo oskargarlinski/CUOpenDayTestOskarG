@@ -18,7 +18,7 @@ async function loadOpenDay() {
 function showLoading() {
   const app = document.querySelector<HTMLDivElement>('#app')!
   app.innerHTML = `
-    <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]">
+    <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]" role="status" aria-label="Loading Open Day programme">
       <div class="text-center">
         <div class="spinner mx-auto mb-5"></div>
         <p class="font-sans text-cardiff-dark text-base tracking-wide">Loading Open Day programme…</p>
@@ -33,7 +33,7 @@ function showLoading() {
 function showError() {
   const app = document.querySelector<HTMLDivElement>('#app')!
   app.innerHTML = `
-    <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]">
+    <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]" role="alert">
       <div class="text-center max-w-sm mx-auto px-6">
         <div class="w-12 h-12 bg-cardiff-red/10 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg class="w-6 h-6 text-cardiff-red" fill="none" stroke="#D50032" viewBox="0 0 24 24" aria-hidden="true">
@@ -98,18 +98,18 @@ function renderProgram(prog: any): string {
       ${prog.school?.name ? `<p class="font-sans text-xs text-gray-400 mb-1.5 font-medium uppercase tracking-wide">${prog.school.name}</p>` : ''}
       <div class="flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-gray-400 mb-1.5 font-sans">
         ${timeStr ? `<span class="flex items-center gap-1">
-          <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="w-3 h-3 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/></svg>
           ${timeStr}
         </span>` : ''}
         ${locationStr ? `<span class="flex items-center gap-1">
-          <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-width="2"/><circle cx="12" cy="9" r="2.5" stroke-width="2"/></svg>
+          <svg class="w-3 h-3 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-width="2"/><circle cx="12" cy="9" r="2.5" stroke-width="2"/></svg>
           ${locationStr}
         </span>` : ''}
       </div>
       ${(accessible || bikePark) ? `
         <div class="flex gap-2 mb-1.5">
-          ${accessible ? `<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">♿ Accessible</span>` : ''}
-          ${bikePark ? `<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded">🚲 Bike parking</span>` : ''}
+          ${accessible ? `<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded" aria-label="Wheelchair accessible"><span aria-hidden="true">♿</span> Accessible</span>` : ''}
+          ${bikePark ? `<span class="inline-flex items-center gap-1 text-xs text-gray-500 font-sans bg-gray-100 px-1.5 py-0.5 rounded" aria-label="Bike parking available"><span aria-hidden="true">🚲</span> Bike parking</span>` : ''}
         </div>
       ` : ''}
       ${prog.description_short ? `
@@ -138,8 +138,9 @@ function renderOpenDay(data: any) {
   // with a semi-transparent overlay, and event title/date/type badge drawn
   // from the top-level fields in OpenDay.json.
   app.innerHTML = `
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-cardiff-red focus:text-white focus:px-4 focus:py-2 focus:text-sm font-sans">Skip to main content</a>
     <!-- Utility bar: mirrors the black top bar on cardiff.ac.uk with secondary navigation links. -->
-    <div class="bg-cardiff-dark">
+    <nav class="bg-cardiff-dark" aria-label="Utility navigation">
       <div class="max-w-screen-2xl mx-auto px-4 py-2.5 flex justify-end items-center gap-6">
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="font-sans text-white/70 text-xs hover:text-white transition-colors">Teaching excellence</a>
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="font-sans text-white/70 text-xs hover:text-white transition-colors">Alumni</a>
@@ -147,14 +148,14 @@ function renderOpenDay(data: any) {
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="font-sans text-white/70 text-xs hover:text-white transition-colors">News</a>
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="font-sans text-white/70 text-xs hover:text-white transition-colors">Events</a>
       </div>
-    </div>
+    </nav>
     <!-- Main nav bar: white background with CU logo on the left, primary nav links, and a Cymraeg toggle on the right. -->
     <header class="bg-white border-b border-gray-100 shadow-sm">
       <div class="max-w-screen-2xl mx-auto px-4 py-3 flex items-center">
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="shrink-0">
           <img src="${cuLogo}" alt="Cardiff University" class="h-14 w-auto" />
         </a>
-        <nav class="hidden md:flex items-center gap-8 flex-1 pl-12">
+        <nav class="hidden md:flex items-center gap-8 flex-1 pl-12" aria-label="Main navigation">
           <a href="https://www.cardiff.ac.uk/study" target="_blank" rel="noopener noreferrer" class="font-sans text-cardiff-dark text-base font-medium hover:text-cardiff-red transition-colors duration-150">Study</a>
           <a href="https://www.cardiff.ac.uk/research" target="_blank" rel="noopener noreferrer" class="font-sans text-cardiff-dark text-base font-medium hover:text-cardiff-red transition-colors duration-150">Research</a>
           <a href="https://www.cardiff.ac.uk/about" target="_blank" rel="noopener noreferrer" class="font-sans text-cardiff-dark text-base font-medium hover:text-cardiff-red transition-colors duration-150">About</a>
@@ -162,6 +163,7 @@ function renderOpenDay(data: any) {
         <a href="" rel="noopener noreferrer" class="ml-auto font-sans border border-cardiff-dark/40 text-cardiff-dark text-xs px-3 py-1.5 tracking-wide hover:border-cardiff-dark hover:bg-cardiff-dark hover:text-white transition-all duration-150">Cymraeg</a>
       </div>
     </header>
+    <main id="main-content">
     <!-- Hero image: full-width cover photo with a gradient overlay for legible white text. -->
     <div class="relative">
       <img src="${data.cover_image}" alt="Open Day banner" class="w-full h-64 sm:h-[28rem] object-cover" />
@@ -178,7 +180,7 @@ function renderOpenDay(data: any) {
       <div class="max-w-screen-2xl mx-auto flex flex-col lg:flex-row gap-6 items-start">
 
         <!-- Sidebar: event summary + filter controls (wired up in REQ-03) -->
-        <aside class="w-full lg:w-64 xl:w-72 shrink-0 lg:sticky lg:top-6 flex flex-col gap-4">
+        <aside class="w-full lg:w-64 xl:w-72 shrink-0 lg:sticky lg:top-6 flex flex-col gap-4" aria-label="Filters">
 
           <!-- Event summary -->
           <div class="bg-white border border-gray-100 shadow-sm p-5 border-l-4 border-l-cardiff-red">
@@ -187,32 +189,33 @@ function renderOpenDay(data: any) {
           </div>
 
           <!-- Search -->
-          <div class="bg-white border border-gray-100 shadow-sm p-5">
+          <div class="bg-white border border-gray-100 shadow-sm p-5" role="search">
             <label for="topic-search" class="font-sans text-xs font-semibold text-cardiff-dark uppercase tracking-wide block mb-2">Search topics</label>
             <input type="text" id="topic-search" placeholder="e.g. Architecture…" class="w-full font-sans text-sm border border-gray-200 px-3 py-2 text-cardiff-dark placeholder-gray-300 focus:outline-none focus:border-cardiff-red transition-colors" />
           </div>
 
           <!-- Programme type filter -->
-          <div class="bg-white border border-gray-100 shadow-sm p-5">
-            <p class="font-sans text-xs font-semibold text-cardiff-dark uppercase tracking-wide mb-3">Programme type</p>
+          <div class="bg-white border border-gray-100 shadow-sm p-5" role="group" aria-labelledby="filter-type-label">
+            <p id="filter-type-label" class="font-sans text-xs font-semibold text-cardiff-dark uppercase tracking-wide mb-3">Programme type</p>
             <div class="flex flex-wrap gap-2">
-              <button id="filter-all" class="font-sans text-xs px-3 py-1.5 border border-cardiff-red bg-cardiff-red text-white font-medium transition-colors">All</button>
+              <button id="filter-all" aria-pressed="true" class="font-sans text-xs px-3 py-1.5 border border-cardiff-red bg-cardiff-red text-white font-medium transition-colors">All</button>
               ${[...new Set(
     data.topics.flatMap((t: any) => t.programs?.map((p: any) => p.programType?.type).filter(Boolean) ?? [])
   )].map((type: any) => `
-                <button data-filter="${type}" class="font-sans text-xs px-3 py-1.5 border border-gray-200 text-gray-500 font-medium hover:border-cardiff-red hover:text-cardiff-red transition-colors">${type}</button>
+                <button data-filter="${type}" aria-pressed="false" class="font-sans text-xs px-3 py-1.5 border border-gray-200 text-gray-500 font-medium hover:border-cardiff-red hover:text-cardiff-red transition-colors">${type}</button>
               `).join('')}
             </div>
           </div>
 
           <!-- Clear filters - hidden until at least one filter is active -->
-          <button id="clear-filters" class="hidden w-full font-sans text-xs font-semibold text-gray-400 hover:text-cardiff-red transition-colors py-1 text-center">
-            ✕ Clear filters
+          <button id="clear-filters" class="hidden w-full font-sans text-xs font-semibold text-gray-400 hover:text-cardiff-red transition-colors py-1 text-center" aria-label="Clear filters">
+            <span aria-hidden="true">✕</span> Clear filters
           </button>
 
         </aside>
 
         <!-- Topics grid -->
+        <p id="filter-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
         <div id="topics-grid" class="flex-1 grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 items-start">
           ${data.topics.map((topic: any, i: number) => topic && topic.name ? `
             <div class="topic-card bg-white shadow-sm border border-gray-100 flex flex-col overflow-hidden hover:shadow-md transition-shadow duration-200"
@@ -251,6 +254,7 @@ function renderOpenDay(data: any) {
 
       </div>
     </div>
+    </main>
 
     <!-- Footer -->
     <footer class="bg-cardiff-dark text-white">
@@ -372,6 +376,12 @@ function wireUpFilters() {
     // Show the empty state only when every card is hidden.
     document.getElementById('no-results')!.classList.toggle('hidden', visibleCount > 0)
 
+    // Announce result count to screen readers via the live region.
+    const statusEl = document.getElementById('filter-status')
+    if (statusEl) statusEl.textContent = visibleCount > 0
+      ? `Showing ${visibleCount} topic${visibleCount !== 1 ? 's' : ''}`
+      : 'No topics found'
+
     // Show the clear button only when at least one filter is active.
     clearBtn.classList.toggle('hidden', !query && !activeType)
   }
@@ -387,6 +397,7 @@ function wireUpFilters() {
       btn.classList.toggle('border-cardiff-red', isActive)
       btn.classList.toggle('border-gray-200', !isActive)
       btn.classList.toggle('text-gray-500', !isActive)
+      btn.setAttribute('aria-pressed', isActive ? 'true' : 'false')
     })
   }
 
