@@ -1,11 +1,11 @@
-(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const a of s)if(a.type==="childList")for(const o of a.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&n(o)}).observe(document,{childList:!0,subtree:!0});function t(s){const a={};return s.integrity&&(a.integrity=s.integrity),s.referrerPolicy&&(a.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?a.credentials="include":s.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(s){if(s.ep)return;s.ep=!0;const a=t(s);fetch(s.href,a)}})();const w="/CUOpenDayTestOskarG/cu-logo.svg";async function B(){const r=await fetch("/CUOpenDayTestOskarG/api/OpenDay.json");if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}function _(){const e=document.querySelector("#app");e.innerHTML=`
+(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const a of s)if(a.type==="childList")for(const o of a.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&n(o)}).observe(document,{childList:!0,subtree:!0});function t(s){const a={};return s.integrity&&(a.integrity=s.integrity),s.referrerPolicy&&(a.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?a.credentials="include":s.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function n(s){if(s.ep)return;s.ep=!0;const a=t(s);fetch(s.href,a)}})();const g="/CUOpenDayTestOskarG/cu-logo.svg";async function E(){const r=await fetch("/CUOpenDayTestOskarG/api/OpenDay.json");if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}function S(){const e=document.querySelector("#app");e.innerHTML=`
     <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]">
       <div class="text-center">
         <div class="spinner mx-auto mb-5"></div>
         <p class="font-sans text-cardiff-dark text-base tracking-wide">Loading Open Day programme…</p>
       </div>
     </div>
-  `}function C(){const e=document.querySelector("#app");e.innerHTML=`
+  `}function B(){const e=document.querySelector("#app");e.innerHTML=`
     <div class="flex items-center justify-center min-h-screen bg-[#F7F7F7]">
       <div class="text-center max-w-sm mx-auto px-6">
         <div class="w-12 h-12 bg-cardiff-red/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -53,7 +53,7 @@
         </details>
       `:""}
     </div>
-  `}function O(e){const r=document.querySelector("#app");if(!e.topics){r.innerHTML='<p class="text-red-600">No Open Day data found.</p>';return}r.innerHTML=`
+  `}function A(e){const r=document.querySelector("#app");if(!e.topics){r.innerHTML='<p class="text-red-600">No Open Day data found.</p>';return}r.innerHTML=`
     <!-- Utility bar: mirrors the black top bar on cardiff.ac.uk with secondary navigation links. -->
     <div class="bg-cardiff-dark">
       <div class="max-w-screen-2xl mx-auto px-4 py-2.5 flex justify-end items-center gap-6">
@@ -68,7 +68,7 @@
     <header class="bg-white border-b border-gray-100 shadow-sm">
       <div class="max-w-screen-2xl mx-auto px-4 py-3 flex items-center">
         <a href="https://www.cardiff.ac.uk/" target="_blank" rel="noopener noreferrer" class="shrink-0">
-          <img src="${w}" alt="Cardiff University" class="h-14 w-auto" />
+          <img src="${g}" alt="Cardiff University" class="h-14 w-auto" />
         </a>
         <nav class="hidden md:flex items-center gap-8 flex-1 pl-12">
           <a href="https://www.cardiff.ac.uk/study" target="_blank" rel="noopener noreferrer" class="font-sans text-cardiff-dark text-base font-medium hover:text-cardiff-red transition-colors duration-150">Study</a>
@@ -134,7 +134,7 @@
               data-program-types="${[...new Set((t.programs??[]).map(s=>s.programType?.type).filter(Boolean))].join(",")}"
               style="animation-delay:${n*60}ms">
               <div class="relative h-36 overflow-hidden">
-                <img src="${t.cover_image||w}" alt="${t.name}" class="w-full h-full object-cover" />
+                <img src="${t.cover_image||g}" alt="${t.name}" class="w-full h-full object-cover" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
               </div>
               <div class="flex flex-col flex-1 p-5 border-l-4 border-cardiff-red">
@@ -165,4 +165,61 @@
 
       </div>
     </div>
-  `,A(),j()}function j(){const e=document.getElementById("topic-search"),r=document.getElementById("filter-all"),t=document.querySelectorAll("[data-filter]"),n=document.getElementById("clear-filters");let s="";function a(){const i=e.value.trim().toLowerCase(),f=document.querySelectorAll(".topic-card");let c=0;f.forEach(l=>{const L=l.dataset.topicName??"",T=l.dataset.programTypes?l.dataset.programTypes.split(","):[],S=!i||L.includes(i),E=!s||T.includes(s),u=S&&E;l.classList.toggle("hidden",!u),u&&c++;const p=l.querySelector(".sessions-toggle");if(!p)return;const m=p.querySelector("summary"),g=parseInt(p.dataset.totalPrograms??"0",10),h=l.querySelectorAll("[data-program-type]"),x=p.querySelector(".sessions-close");if(!s)h.forEach(d=>d.classList.remove("hidden")),m&&(m.textContent=`View ${g} session${g!==1?"s":""} ›`),x&&(x.textContent=`Hide ${g} session${g!==1?"s":""} ‹`);else{let d=0;h.forEach(y=>{const b=(y.dataset.programType??"")===s;y.classList.toggle("hidden",!b),b&&d++}),m&&(m.textContent=`View ${d} session${d!==1?"s":""} ›`),x&&(x.textContent=`Hide ${d} session${d!==1?"s":""} ‹`)}}),document.getElementById("no-results").classList.toggle("hidden",c>0),n.classList.toggle("hidden",!i&&!s)}function o(i){[r,...Array.from(t)].forEach(c=>{const l=c===i;c.classList.toggle("bg-cardiff-red",l),c.classList.toggle("text-white",l),c.classList.toggle("border-cardiff-red",l),c.classList.toggle("border-gray-200",!l),c.classList.toggle("text-gray-500",!l)})}e.addEventListener("input",a),r.addEventListener("click",()=>{s="",o(r),a()}),t.forEach(i=>{i.addEventListener("click",()=>{s=i.dataset.filter??"",o(i),a()})}),n.addEventListener("click",()=>{e.value="",s="",o(r),a()})}function A(){document.querySelectorAll(".sessions-close").forEach(e=>{e.addEventListener("click",()=>{e.closest("details.sessions-toggle").open=!1})})}async function $(){_();try{const e=await B();O(e)}catch{C()}}$();
+
+    <!-- Footer -->
+    <footer class="bg-cardiff-dark text-white">
+      <div class="max-w-screen-2xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <!-- Branding -->
+        <div class="lg:col-span-1">
+          <img src="${g}" alt="Cardiff University" class="h-12 w-auto mb-4 " />
+          <p class="font-sans text-white/60 text-sm leading-relaxed">Cardiff University Open Day Programme - explore our topics, sessions, and events.</p>
+        </div>
+
+        <!-- Explore -->
+        <div>
+          <p class="font-sans text-xs font-semibold text-white/40 uppercase tracking-widest mb-4">Explore</p>
+          <ul class="space-y-2.5">
+            <li><a href="https://www.cardiff.ac.uk/study" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Undergraduate study</a></li>
+            <li><a href="https://www.cardiff.ac.uk/study/postgraduate" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Postgraduate study</a></li>
+            <li><a href="https://www.cardiff.ac.uk/study/open-days" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Open Days</a></li>
+            <li><a href="https://www.cardiff.ac.uk/research" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Research</a></li>
+          </ul>
+        </div>
+
+        <!-- University -->
+        <div>
+          <p class="font-sans text-xs font-semibold text-white/40 uppercase tracking-widest mb-4">University</p>
+          <ul class="space-y-2.5">
+            <li><a href="https://www.cardiff.ac.uk/about" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">About Cardiff</a></li>
+            <li><a href="https://www.cardiff.ac.uk/news" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">News</a></li>
+            <li><a href="https://www.cardiff.ac.uk/events" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Events</a></li>
+            <li><a href="https://www.cardiff.ac.uk/alumni" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Alumni</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <p class="font-sans text-xs font-semibold text-white/40 uppercase tracking-widest mb-4">Contact</p>
+          <ul class="space-y-2.5">
+            <li><a href="https://www.cardiff.ac.uk/contact-us" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Contact us</a></li>
+            <li><a href="https://www.cardiff.ac.uk/maps" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Campus maps</a></li>
+            <li><a href="https://www.cardiff.ac.uk/cymraeg" target="_blank" rel="noopener noreferrer" class="font-sans text-sm text-white/70 hover:text-white transition-colors">Cymraeg</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p class="font-sans text-xs text-white/40">&copy; ${new Date().getFullYear()} Cardiff University. All rights reserved.</p>
+          <div class="flex gap-5">
+            <a href="https://www.cardiff.ac.uk/privacy-policy" target="_blank" rel="noopener noreferrer" class="font-sans text-xs text-white/40 hover:text-white/70 transition-colors">Privacy</a>
+            <a href="https://www.cardiff.ac.uk/cookies" target="_blank" rel="noopener noreferrer" class="font-sans text-xs text-white/40 hover:text-white/70 transition-colors">Cookies</a>
+            <a href="https://www.cardiff.ac.uk/accessibility" target="_blank" rel="noopener noreferrer" class="font-sans text-xs text-white/40 hover:text-white/70 transition-colors">Accessibility</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  `,j(),O()}function O(){const e=document.getElementById("topic-search"),r=document.getElementById("filter-all"),t=document.querySelectorAll("[data-filter]"),n=document.getElementById("clear-filters");let s="";function a(){const i=e.value.trim().toLowerCase(),f=document.querySelectorAll(".topic-card");let c=0;f.forEach(l=>{const L=l.dataset.topicName??"",_=l.dataset.programTypes?l.dataset.programTypes.split(","):[],T=!i||L.includes(i),C=!s||_.includes(s),u=T&&C;l.classList.toggle("hidden",!u),u&&c++;const p=l.querySelector(".sessions-toggle");if(!p)return;const x=p.querySelector("summary"),m=parseInt(p.dataset.totalPrograms??"0",10),w=l.querySelectorAll("[data-program-type]"),h=p.querySelector(".sessions-close");if(!s)w.forEach(d=>d.classList.remove("hidden")),x&&(x.textContent=`View ${m} session${m!==1?"s":""} ›`),h&&(h.textContent=`Hide ${m} session${m!==1?"s":""} ‹`);else{let d=0;w.forEach(b=>{const y=(b.dataset.programType??"")===s;b.classList.toggle("hidden",!y),y&&d++}),x&&(x.textContent=`View ${d} session${d!==1?"s":""} ›`),h&&(h.textContent=`Hide ${d} session${d!==1?"s":""} ‹`)}}),document.getElementById("no-results").classList.toggle("hidden",c>0),n.classList.toggle("hidden",!i&&!s)}function o(i){[r,...Array.from(t)].forEach(c=>{const l=c===i;c.classList.toggle("bg-cardiff-red",l),c.classList.toggle("text-white",l),c.classList.toggle("border-cardiff-red",l),c.classList.toggle("border-gray-200",!l),c.classList.toggle("text-gray-500",!l)})}e.addEventListener("input",a),r.addEventListener("click",()=>{s="",o(r),a()}),t.forEach(i=>{i.addEventListener("click",()=>{s=i.dataset.filter??"",o(i),a()})}),n.addEventListener("click",()=>{e.value="",s="",o(r),a()})}function j(){document.querySelectorAll(".sessions-close").forEach(e=>{e.addEventListener("click",()=>{e.closest("details.sessions-toggle").open=!1})})}async function $(){S();try{const e=await E();A(e)}catch{B()}}$();
