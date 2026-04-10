@@ -68,10 +68,6 @@ Wheelchair accessibility and bike parking availability are shown as small badges
 - A spinner is shown while the API request is in flight
 - A user-friendly error message with a retry button is shown if the fetch fails
 
----
-
-## What's Still In Progress
-
-### REQ-07 - Footer
-Not yet started.
+### REQ-07 - Page footer
+A sticky footer contains the Cardiff University logo and name, a link to cardiff.ac.uk, navigation links (Undergraduate, Postgraduate, Research), and a copyright bar - all styled in Cardiff Red to match the header.
 
